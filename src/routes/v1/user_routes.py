@@ -1,18 +1,29 @@
 from flask_restful import Api
+from validate_docbr import CPF, CNPJ
 
-import src.application.application_service as ap
-import src.controllers.v1.users.users_controller as u
-import src.controllers.validators.users_validator as uv
-from src.infrastructure.database.repositories.users import Users
+from src.application.application_service import ApplicationService
+from src.controllers.v1.users.users_controller import UsersController
+from src.controllers.validators.document_validator import DocumentValidator
+from src.controllers.validators.users_validator import UsersValidator
+from src.infrastructure.database.repositories.users_repository import UsersRepository
+from src.infrastructure.translators.users_translator import UsersTranslator
 
 
 def add_routes(api: Api) -> Api:
     api.add_resource(
-        u.Users,
+        UsersController,
         '/v1/users',
         resource_class_kwargs={
-            'users_validator': uv.UsersValidator(),
-            'application_service': ap.ApplicationService(users_repository=Users)
+            'users_validator': UsersValidator(
+                documents_validator=DocumentValidator(
+                    cpf_validator=CPF(),
+                    cnpj_validator=CNPJ()
+                )
+            ),
+            'application_service': ApplicationService(
+                users_repository=UsersRepository(),
+                users_translator=UsersTranslator()
+            )
         }
     )
     return api
