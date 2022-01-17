@@ -9,4 +9,3 @@ class Accounts(Base):
     value = db.Column(db.Float)
     date = db.Column(db.Datetime)
     account_id = db.Column(db.Integer)
-

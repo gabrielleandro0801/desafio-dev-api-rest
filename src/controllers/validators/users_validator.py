@@ -1,9 +1,10 @@
-from flask_restful import reqparse, inputs
+from flask_restful import reqparse
+from src.controllers.validators.document_validator import DocumentValidator
 
 
 class UsersValidator:
-    def __init__(self):
-        pass
+    def __init__(self, documents_validator):
+        self.__document_validator: DocumentValidator = documents_validator
 
     def validate_post(self) -> dict:
         body = reqparse.RequestParser()
@@ -17,7 +18,7 @@ class UsersValidator:
         body.add_argument(
             'document',
             required=True,
-            type=inputs.regex('^[0-9]{11}$'),
-            help="Param is required and must be only numbers and its length must be 11 or 14"
+            type=self.__document_validator.validate_document,
+            help="Param is required and must be either a valid CPF or CNPJ"
         )
         return body.parse_args()
