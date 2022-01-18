@@ -1,14 +1,14 @@
 from flask_sqlalchemy import BaseQuery
 
-from src.infrastructure.database.connection.db_connection import db, Base
+from src.infrastructure.database.connection.db_connection import db
 
 
-class Users(Base):
+class Users(db.Model):
     __tablename__ = "users"
 
-    id = db.Column('id', db.Integer, primary_key=True)
-    name = db.Column('name', db.String)
-    document = db.Column('document', db.String)
+    id = db.Column('id', db.Integer, unique=True, primary_key=True, autoincrement=True)
+    name = db.Column('name', db.String(100), nullable=False)
+    document = db.Column('document', db.String(14), unique=True, nullable=False)
 
     def __init__(self, **kwargs) -> None:
         self.id = kwargs.get('id')
@@ -20,19 +20,23 @@ class UsersRepository:
     def __init__(self) -> None:
         pass
 
-    def find_by_document(self, document: str) -> None or Users:
-        query: BaseQuery = db.session.query(Users)
-        query = query.filter(Users.document == document)
-
-        response: Users or None = query.first()
+    def find_by_user_id(self, user_id: int) -> Users or None:
+        query: BaseQuery = Users.query.filter(Users.id == user_id)
+        user = query.first()
         db.session.commit()
+        return user
 
-        # return None if response is None else self.__translator.translate_response_to_model(response)
-        return response
+    def find_by_document(self, document: str) -> Users or None:
+        query = Users.query.filter(Users.document == document)
+        user: Users or None = query.first()
+        db.session.commit()
+        return user
 
-    # @classmethod
-    # def save(cls, user: u.Users):
-    #     model = Users(user)
-    #     db.session.add(model)
-    #     db.session.commit()
-    #     print(model)
+    def save(self, user: Users):
+        db.session.add(user)
+        db.session.commit()
+        return user
+
+    def delete_by_user_id(self, user: Users):
+        db.session.delete(user)
+        db.session.commit()

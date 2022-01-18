@@ -1,21 +1,22 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import DeclarativeMeta
 
-DATABASE_URL = 'sqlite:///infrastructure/database/connection/database.db'
+# DATABASE_URL = 'sqlite:///infrastructure/database/connection/database.db'
+HOST = 'localhost'
+PORT = 5432
+USER = 'postgres'
+PASSWORD = 'password'
+DATABASE = 'postgres'
+DATABASE_URL = f'postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}'
 
 db = SQLAlchemy()
-# engine = create_engine('sqlite:///infrastructure/database/connection/database.db', echo=True)
-#
-# Session = sessionmaker(bind=engine)
-# session = Session()
 
-Base = declarative_base()
+Base: DeclarativeMeta = declarative_base()
 
 
 def start_connection(app: Flask) -> None:
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
-    db.init_app(app)
+    db.init_app(app=app)

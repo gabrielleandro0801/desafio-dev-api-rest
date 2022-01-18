@@ -15,3 +15,5 @@ api = v1_user_routes.add_routes(api)
 
 if __name__ == '__main__':
     app.run()
+
+# Subir docker-compose up -d

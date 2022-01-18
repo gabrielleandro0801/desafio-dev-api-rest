@@ -1,20 +1,43 @@
 from src.infrastructure.database.repositories import users_repository as ur
-from src.infrastructure.database.repositories.users_repository import UsersRepository
 from src.infrastructure.translators.users_translator import UsersTranslator
 
 
 class ApplicationService:
     def __init__(self, **kwargs):
         self.__users_translator: UsersTranslator = kwargs.get('users_translator')
-        self.__users_repository: UsersRepository = kwargs.get('users_repository')
+        self.__users_repository: ur.UsersRepository = kwargs.get('users_repository')
 
-    def register_user(self, body: dict):
+    def register_user(self, body: dict) -> ur.Users or False:
         user: ur.Users = self.__users_translator.translate_user_from_body(body)
 
-        existing_user = self.__users_repository.find_by_document(user.document)
-        if existing_user is not None:
-            return False
+        existing_user: ur.Users = self.__users_repository.find_by_document(user.document)
+        # if existing_user is None:
+        #     return False
 
-        # self.__users_repository.save()
+        # by_id = self.__users_repository.find_by_user_id(2)
+        # self.__users_repository.delete_by_user_id(existing_user)
+        return self.__users_repository.save(user)
 
+    def remove_user(self):
+        pass
 
+    def register_account(self):
+        pass
+
+    def retrieve_account(self):
+        pass
+
+    def lock_account(self):
+        pass
+
+    def unlock_account(self):
+        pass
+
+    def close_account(self):
+        pass
+
+    def do_deposit(self):
+        pass
+
+    def do_withdraw(self):
+        pass

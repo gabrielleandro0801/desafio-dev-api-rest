@@ -4,6 +4,7 @@ from flask_restful import Resource
 
 from src.application.application_service import ApplicationService
 from src.controllers.validators.users_validator import UsersValidator
+from src.infrastructure.database.repositories import users_repository as ur
 
 
 class UsersController(Resource):
@@ -13,6 +14,9 @@ class UsersController(Resource):
 
     def post(self):
         body: dict = self.__users_validator.validate_post()
-        self.__application_service.register_user(body)
-        return {}, HTTPStatus.CREATED
+        response: ur.Users = self.__application_service.register_user(body)
+        return {
+            'message': 'User successfully created',
+            'id': response.id
+        }, HTTPStatus.CREATED
 
