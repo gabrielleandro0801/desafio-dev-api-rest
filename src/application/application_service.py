@@ -39,16 +39,28 @@ class ApplicationService:
 
         return self.__accounts_service.create_account(user)
 
-    def retrieve_account(self):
-        pass
+    def retrieve_account(self, account_id: int) -> a.Accounts:
+        account: a.Accounts = self.__accounts_service.get_account(account_id)
+        if account is None:
+            raise ce.AccountNotFound
+
+        return account
+
+    def close_account(self, account_id: int) -> None:
+        account: a.Accounts = self.__accounts_service.get_account(account_id)
+        if account is None:
+            raise ce.AccountNotFound
+
+        is_able_to_close: bool = self.__accounts_service.check_availability_to_close(account.status)
+        if not is_able_to_close:
+            raise ce.AccountStatusDoesNotAllowToClose
+
+        self.__accounts_service.close_account(account)
 
     def lock_account(self):
         pass
 
     def unlock_account(self):
-        pass
-
-    def close_account(self):
         pass
 
     def do_deposit(self):

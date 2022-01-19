@@ -27,7 +27,7 @@ def add_routes(api: fr.Api) -> fr.Api:
                 users_service=UsersService(
                     users_repository=UsersRepository
                 ),
-                users_translator=UsersTranslator()
+                users_translator=UsersTranslator
             )
         }
     )

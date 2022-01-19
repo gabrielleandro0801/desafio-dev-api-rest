@@ -1,6 +1,21 @@
 from src.infrastructure.database.connection.db_connection import db
 
 
+class AccountsStatus:
+    ACTIVE = 'ACTIVE'
+    LOCKED = 'ACTIVE'
+    CLOSED = 'ACTIVE'
+
+
+STATUS_TO_LOCK = [
+    AccountsStatus.ACTIVE
+]
+
+STATUS_TO_CLOSE = [
+    AccountsStatus.ACTIVE
+]
+
+
 class Accounts(db.Model):
     __tablename__ = "accounts"
 

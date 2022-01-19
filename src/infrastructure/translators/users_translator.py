@@ -5,7 +5,8 @@ class UsersTranslator:
     def __init__(self):
         pass
 
-    def translate_user_from_body(self, body: dict):
+    @classmethod
+    def translate_user_from_body(cls, body: dict):
         return u.Users(
             name=body.get('name'),
             document=body.get('document')

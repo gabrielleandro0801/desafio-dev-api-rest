@@ -1,9 +1,9 @@
 from http import HTTPStatus
-
 from flask_restful import Resource
 
 import src.domain.exceptions.custom_exceptions as ce
 import src.domain.models.users as u
+
 from src.application.application_service import ApplicationService
 from src.controllers.validators.users_validator import UsersValidator
 

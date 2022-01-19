@@ -2,8 +2,8 @@ import flask as f
 import flask_restful as fr
 
 import src.infrastructure.database.connection.db_connection as database
-import src.routes.v1.user_routes as v1_user
 import src.routes.v1.accounts_routes as v1_accounts
+import src.routes.v1.user_routes as v1_user
 
 app: f.Flask = f.Flask(__name__)
 api: fr.Api = fr.Api(app)
