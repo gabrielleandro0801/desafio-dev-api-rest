@@ -2,7 +2,7 @@ import flask_restful as fr
 from validate_docbr import CPF, CNPJ
 
 from src.application.application_service import ApplicationService
-from src.controllers.v1.users.users_controller import UsersController, UsersControllerById
+from src.controllers.v1.users_controller import UsersController, UsersControllerById
 from src.controllers.validators.document_validator import DocumentValidator
 from src.controllers.validators.string_validator import StringValidator
 from src.controllers.validators.users_validator import UsersValidator
@@ -25,7 +25,7 @@ def add_routes(api: fr.Api) -> fr.Api:
             ),
             'application_service': ApplicationService(
                 users_service=UsersService(
-                    users_repository=UsersRepository()
+                    users_repository=UsersRepository
                 ),
                 users_translator=UsersTranslator()
             )
@@ -38,7 +38,7 @@ def add_routes(api: fr.Api) -> fr.Api:
         resource_class_kwargs={
             'application_service': ApplicationService(
                 users_service=UsersService(
-                    users_repository=UsersRepository()
+                    users_repository=UsersRepository
                 ),
                 users_translator=UsersTranslator()
             )

@@ -1,6 +1,4 @@
 class StringValidator:
-    def __init__(self):
-        pass
 
     @classmethod
     def str_validation(cls, max_length=None):
