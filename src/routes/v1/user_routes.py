@@ -34,9 +34,14 @@ def add_routes(api: fr.Api) -> fr.Api:
 
     api.add_resource(
         UsersControllerById,
-        '/v1/users/<bank_number>',
+        '/v1/users/<user_id>',
         resource_class_kwargs={
-
+            'application_service': ApplicationService(
+                users_service=UsersService(
+                    users_repository=UsersRepository()
+                ),
+                users_translator=UsersTranslator()
+            )
         }
     )
     return api

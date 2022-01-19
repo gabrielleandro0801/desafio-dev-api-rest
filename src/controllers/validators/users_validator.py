@@ -24,10 +24,3 @@ class UsersValidator:
             help="Param is required and must be either a valid CPF or CNPJ"
         )
         return body.parse_args()
-
-
-# class UsersByIdValidator:
-#     def __init__(self):
-#         pass
-#
-#     def validate_delete(self) -> dict:

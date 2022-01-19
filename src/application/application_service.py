@@ -1,5 +1,5 @@
 import src.domain.models.users as u
-from src.domain.exceptions.custom_exceptions import DocumentAlreadyExists
+from src.domain.exceptions.custom_exceptions import DocumentAlreadyExists, UserNotFound
 from src.domain.services.users_service import UsersService
 from src.infrastructure.translators.users_translator import UsersTranslator
 
@@ -18,8 +18,12 @@ class ApplicationService:
 
         return self.__users_service.create_user(user)
 
-    def remove_user(self):
-        pass
+    def remove_user(self, user_id: int) -> None:
+        user: u.Users = self.__users_service.get_user_by_id(user_id)
+        if user is None:
+            raise UserNotFound
+
+        self.__users_service.delete_user(user)
 
     def register_account(self):
         pass

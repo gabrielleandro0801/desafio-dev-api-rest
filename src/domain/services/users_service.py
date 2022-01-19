@@ -10,5 +10,11 @@ class UsersService:
         existing_user: u.Users = self.__users_repository.find_by_document(document)
         return True if existing_user is not None else False
 
-    def create_user(self, user) -> u.Users:
+    def create_user(self, user: u.Users) -> u.Users:
         return self.__users_repository.save(user)
+
+    def get_user_by_id(self, user_id: int) -> u.Users or None:
+        return self.__users_repository.find_by_user_id(user_id)
+
+    def delete_user(self, user: u.Users):
+        self.__users_repository.delete(user)

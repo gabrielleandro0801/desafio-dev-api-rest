@@ -2,10 +2,10 @@ from http import HTTPStatus
 
 from flask_restful import Resource
 
+import src.domain.exceptions.custom_exceptions as ce
 import src.domain.models.users as u
 from src.application.application_service import ApplicationService
 from src.controllers.validators.users_validator import UsersValidator
-from src.domain.exceptions.custom_exceptions import DocumentAlreadyExists
 
 
 class UsersController(Resource):
@@ -18,22 +18,27 @@ class UsersController(Resource):
 
         try:
             response: u.Users = self.__application_service.register_user(body)
-        except DocumentAlreadyExists:
+        except ce.DocumentAlreadyExists:
             return {
                 'message': 'There is already a user using this document'
             }, HTTPStatus.UNPROCESSABLE_ENTITY
-        else:
-            return {
-                'message': 'User successfully created',
-                'userId': response.id
-            }, HTTPStatus.CREATED
+
+        return {
+            'message': 'User successfully created',
+            'userId': response.id
+        }, HTTPStatus.CREATED
 
 
 class UsersControllerById(Resource):
-    def __init__(self, users_validator, application_service) -> None:
-        self.__users_validator: UsersValidator = users_validator
+    def __init__(self, application_service) -> None:
         self.__application_service: ApplicationService = application_service
 
-    def delete(self):
-        print(1)
-        pass
+    def delete(self, user_id: int):
+        try:
+            self.__application_service.remove_user(user_id)
+        except ce.UserNotFound:
+            return {
+                'message': 'User not found'
+            }, HTTPStatus.NOT_FOUND
+
+        return '', HTTPStatus.NO_CONTENT

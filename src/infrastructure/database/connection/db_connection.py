@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeMeta
 
-# DATABASE_URL = 'sqlite:///infrastructure/database/connection/database.db'
 HOST = 'localhost'
 PORT = 5432
 USER = 'postgres'

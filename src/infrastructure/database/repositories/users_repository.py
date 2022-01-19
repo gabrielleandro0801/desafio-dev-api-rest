@@ -25,6 +25,6 @@ class UsersRepository:
         db.session.commit()
         return user
 
-    def delete_by_user_id(self, user: u.Users):
+    def delete(self, user: u.Users) -> None:
         db.session.delete(user)
         db.session.commit()
