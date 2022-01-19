@@ -7,13 +7,15 @@ class DocumentValidator:
         self.__cnpj_validator: CNPJValidator = cnpj_validator
 
     def validate_document(self, document: str) -> str:
-        doc_types = {
+        doc_types: dict = {
             '11': self.__cpf_validator.validate,
             '14': self.__cnpj_validator.validate
         }
 
-        is_valid: bool = doc_types[str(len(document))](document)
+        if str(len(document)) not in doc_types:
+            raise Exception
 
+        is_valid: bool = doc_types[str(len(document))](document)
         if not is_valid:
             raise Exception
 

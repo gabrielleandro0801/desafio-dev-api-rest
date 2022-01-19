@@ -1,4 +1,4 @@
-from src.infrastructure.database.repositories import users_repository as ur
+import src.domain.models.users as u
 
 
 class UsersTranslator:
@@ -6,7 +6,7 @@ class UsersTranslator:
         pass
 
     def translate_user_from_body(self, body: dict):
-        return ur.Users(
+        return u.Users(
             name=body.get('name'),
             document=body.get('document')
         )
