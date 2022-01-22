@@ -8,6 +8,11 @@ class UserNotFound(Exception):
         super().__init__('UserNotFound')
 
 
+class UserHasAccount(Exception):
+    def __init__(self):
+        super().__init__('UserHasAccount')
+
+
 class AccountAlreadyExists(Exception):
     def __init__(self):
         super().__init__('AccountAlreadyExists')
@@ -21,3 +26,13 @@ class AccountNotFound(Exception):
 class AccountStatusDoesNotAllowToClose(Exception):
     def __init__(self):
         super().__init__('AccountStatusDoesNotAllowToClose')
+
+
+class AccountStatusDoesNotAllowToLock(Exception):
+    def __init__(self):
+        super().__init__('AccountStatusDoesNotAllowToLock')
+
+
+class AccountStatusDoesNotAllowToUnLock(Exception):
+    def __init__(self):
+        super().__init__('AccountStatusDoesNotAllowToUnLock')

@@ -40,5 +40,9 @@ class UsersControllerById(Resource):
             return {
                 'message': 'User not found'
             }, HTTPStatus.NOT_FOUND
+        except ce.UserHasAccount:
+            return {
+                'message': "This user can't be removed because he's got an account"
+            }, HTTPStatus.BAD_REQUEST
 
         return '', HTTPStatus.NO_CONTENT

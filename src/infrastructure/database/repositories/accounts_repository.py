@@ -31,3 +31,8 @@ class AccountsRepository:
     def close_account(cls, account: a.Accounts) -> None:
         db.session.delete(account)
         db.session.commit()
+
+    @classmethod
+    def update_status(cls, account: a.Accounts, status: str) -> None:
+        db.session.query(a.Accounts).filter(a.Accounts.id == account.id).update({a.Accounts.status: status})
+        db.session.commit()

@@ -3,8 +3,6 @@ import src.domain.models.users as u
 
 
 class AccountsTranslator:
-    def __init__(self):
-        pass
 
     @classmethod
     def translate_account_to_create(cls, user: u.Users) -> a.Accounts:

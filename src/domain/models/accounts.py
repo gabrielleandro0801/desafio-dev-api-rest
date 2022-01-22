@@ -3,12 +3,21 @@ from src.infrastructure.database.connection.db_connection import db
 
 class AccountsStatus:
     ACTIVE = 'ACTIVE'
-    LOCKED = 'ACTIVE'
-    CLOSED = 'ACTIVE'
+    LOCKED = 'LOCKED'
+    CLOSED = 'CLOSED'
 
+
+EXISTING_ACCOUNT_STATUS = [
+    AccountsStatus.ACTIVE,
+    AccountsStatus.LOCKED
+]
 
 STATUS_TO_LOCK = [
     AccountsStatus.ACTIVE
+]
+
+STATUS_TO_UNLOCK = [
+    AccountsStatus.LOCKED
 ]
 
 STATUS_TO_CLOSE = [

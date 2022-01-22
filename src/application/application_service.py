@@ -1,6 +1,7 @@
 import src.domain.exceptions.custom_exceptions as ce
 import src.domain.models.accounts as a
 import src.domain.models.users as u
+
 from src.domain.services.accounts_service import AccountsService
 from src.domain.services.users_service import UsersService
 from src.infrastructure.translators.users_translator import UsersTranslator
@@ -26,6 +27,10 @@ class ApplicationService:
         if user is None:
             raise ce.UserNotFound
 
+        user_has_account: bool = self.__accounts_service.get_existing_account_by_user_id(user.id)
+        if user_has_account:
+            raise ce.UserHasAccount
+
         self.__users_service.delete_user(user)
 
     def register_account(self, body: dict) -> a.Accounts:
@@ -33,7 +38,7 @@ class ApplicationService:
         if user is None:
             raise ce.UserNotFound
 
-        account_already_exists: bool = self.__accounts_service.check_duplicated_account(user.id)
+        account_already_exists: bool = self.__accounts_service.get_existing_account_by_user_id(user.id)
         if account_already_exists:
             raise ce.AccountAlreadyExists
 
@@ -57,11 +62,27 @@ class ApplicationService:
 
         self.__accounts_service.close_account(account)
 
-    def lock_account(self):
-        pass
+    def lock_account(self, account_id: int) -> None:
+        account: a.Accounts = self.__accounts_service.get_account(account_id)
+        if account is None:
+            raise ce.AccountNotFound
 
-    def unlock_account(self):
-        pass
+        is_able_to_lock: bool = self.__accounts_service.check_availability_to_lock(account.status)
+        if not is_able_to_lock:
+            raise ce.AccountStatusDoesNotAllowToLock
+
+        self.__accounts_service.lock_account(account)
+
+    def unlock_account(self, account_id: int) -> None:
+        account: a.Accounts = self.__accounts_service.get_account(account_id)
+        if account is None:
+            raise ce.AccountNotFound
+
+        is_able_to_unlock: bool = self.__accounts_service.check_availability_to_unlock(account.status)
+        if not is_able_to_unlock:
+            raise ce.AccountStatusDoesNotAllowToUnLock
+
+        self.__accounts_service.unlock_account(account)
 
     def do_deposit(self):
         pass
