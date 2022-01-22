@@ -1,4 +1,4 @@
-import flask_restful as fr
+from flask_restful import Api
 from validate_docbr import CPF, CNPJ
 
 from src.application.application_service import ApplicationService
@@ -13,7 +13,7 @@ from src.infrastructure.database.repositories.users_repository import UsersRepos
 from src.infrastructure.translators.accounts_translator import AccountsTranslator
 
 
-def add_routes(api: fr.Api) -> fr.Api:
+def add_routes(api: Api) -> Api:
     api.add_resource(
         UsersController,
         '/v1/users',
