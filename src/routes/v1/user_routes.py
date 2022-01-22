@@ -1,16 +1,7 @@
 from flask_restful import Api
-from validate_docbr import CPF, CNPJ
 
-from src.application.application_service import ApplicationService
+from src.controllers.v1.factories import create_application_service, create_user_validator
 from src.controllers.v1.users_controller import UsersController, UsersControllerById
-from src.controllers.validators.document_validator import DocumentValidator
-from src.controllers.validators.string_validator import StringValidator
-from src.controllers.validators.users_validator import UsersValidator
-from src.domain.services.accounts_service import AccountsService
-from src.domain.services.users_service import UsersService
-from src.infrastructure.database.repositories.accounts_repository import AccountsRepository
-from src.infrastructure.database.repositories.users_repository import UsersRepository
-from src.infrastructure.translators.accounts_translator import AccountsTranslator
 
 
 def add_routes(api: Api) -> Api:
@@ -18,22 +9,8 @@ def add_routes(api: Api) -> Api:
         UsersController,
         '/v1/users',
         resource_class_kwargs={
-            'users_validator': UsersValidator(
-                documents_validator=DocumentValidator(
-                    cpf_validator=CPF(),
-                    cnpj_validator=CNPJ()
-                ),
-                string_validator=StringValidator
-            ),
-            'application_service': ApplicationService(
-                users_service=UsersService(
-                    users_repository=UsersRepository
-                ),
-                accounts_service=AccountsService(
-                    accounts_repository=AccountsRepository,
-                    accounts_translator=AccountsTranslator
-                )
-            )
+            'users_validator': create_user_validator(),
+            'application_service': create_application_service()
         }
     )
 
@@ -41,15 +18,7 @@ def add_routes(api: Api) -> Api:
         UsersControllerById,
         '/v1/users/<user_id>',
         resource_class_kwargs={
-            'application_service': ApplicationService(
-                users_service=UsersService(
-                    users_repository=UsersRepository
-                ),
-                accounts_service=AccountsService(
-                    accounts_repository=AccountsRepository,
-                    accounts_translator=AccountsTranslator
-                )
-            )
+            'application_service': create_application_service()
         }
     )
     return api

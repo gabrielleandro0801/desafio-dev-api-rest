@@ -11,7 +11,6 @@ api: Api = Api(app)
 
 database.start_connection(app)
 
-# Adding v1 routes
 api = v1_user.add_routes(api)
 api = v1_accounts.add_routes(api)
 api = v1_transactions.add_routes(api)

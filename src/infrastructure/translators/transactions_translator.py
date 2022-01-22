@@ -26,7 +26,6 @@ class TransactionsTranslator:
     @classmethod
     def translate_transaction_from_body(cls, body: dict):
         from datetime import datetime
-        import src.domain.models.transactions as t
 
         return t.Transactions(
             value=body.get('amount'),

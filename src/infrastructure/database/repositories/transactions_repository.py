@@ -14,7 +14,7 @@ class TransactionsRepository:
         db.session.commit()
 
     @classmethod
-    def get_account_withdraws_of_the_day(cls, account_id):
+    def get_withdraws_of_the_day(cls, account_id):
         query: BaseQuery = t.Transactions.query.filter(t.Transactions.account_id == account_id,
                                                        t.Transactions.type == t.TransactionTypes.WITHDRAW,
                                                        t.Transactions.date >= datetime.now().strftime('%Y-%m-%d'))

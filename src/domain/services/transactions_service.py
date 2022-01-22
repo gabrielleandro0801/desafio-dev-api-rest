@@ -33,8 +33,8 @@ class WithdrawService(TransactionsService):
         if transaction.value > account.balance:
             raise ce.AccountHasNoEnoughBalance
 
-        withdraws_of_the_day: List[t.Transactions] = self.__transactions_repository.get_account_withdraws_of_the_day(account.id)
-        total: float = self.__transactions_translator.get_sum_of_withdraws(withdraws_of_the_day)
+        withdraws: List[t.Transactions] = self.__transactions_repository.get_withdraws_of_the_day(account.id)
+        total: float = self.__transactions_translator.get_sum_of_withdraws(withdraws)
 
         if total + transaction.value > account.withdraw_daily_limit:
             raise ce.WithdrawSurpassesDailyLimitBalance

@@ -1,12 +1,13 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import os
 
-HOST = os.getenv('DB_HOST', 'localhost')
-PORT = os.getenv('DB_PORT', '5432')
-USER = os.getenv('DB_USER', 'postgres')
-PASSWORD = os.getenv('DB_PASSWORD', 'password')
-DATABASE = os.getenv('DB_DATABASE', 'postgres')
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+HOST: str = os.getenv('DB_HOST', 'localhost')
+PORT: str = os.getenv('DB_PORT', '5432')
+USER: str = os.getenv('DB_USER', 'postgres')
+PASSWORD: str = os.getenv('DB_PASSWORD', 'password')
+DATABASE: str = os.getenv('DB_DATABASE', 'postgres')
 
 DATABASE_URL = f'postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}'
 
