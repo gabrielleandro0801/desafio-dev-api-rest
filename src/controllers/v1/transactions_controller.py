@@ -25,6 +25,14 @@ class TransactionsController(Resource):
             return {
                 'message': 'The status of the account does not allow transactions'
             }, HTTPStatus.BAD_REQUEST
+        except ce.AccountHasNoEnoughBalance:
+            return {
+                'message': 'This account does not have enough balance'
+            }, HTTPStatus.BAD_REQUEST
+        except ce.WithdrawSurpassesDailyLimitBalance:
+            return {
+                'message': 'This withdraw will surpass the daily limit'
+            }, HTTPStatus.BAD_REQUEST
 
         return {
             'message': 'Transaction successfully performed'

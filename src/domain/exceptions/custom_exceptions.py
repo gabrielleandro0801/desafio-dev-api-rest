@@ -41,3 +41,13 @@ class AccountStatusDoesNotAllowToUnLock(Exception):
 class AccountStatusDoesNotAllowToTransact(Exception):
     def __init__(self):
         super().__init__('AccountStatusDoesNotAllowToTransact')
+
+
+class AccountHasNoEnoughBalance(Exception):
+    def __init__(self):
+        super().__init__('AccountHasNoEnoughBalance')
+
+
+class WithdrawSurpassesDailyLimitBalance(Exception):
+    def __init__(self):
+        super().__init__('WithdrawSurpassesDailyLimitBalance')

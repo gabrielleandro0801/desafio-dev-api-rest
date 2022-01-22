@@ -99,6 +99,6 @@ class ApplicationService:
         transaction: t.Transactions = self.__transactions_translator.translate_transaction_from_body(body)
 
         service: TransactionsService = self.__transactions_translator.get_operation_type(body.get('operationType'))
-        service.do(transaction)
+        service.do(transaction, account)
 
         self.__accounts_service.update_balance(account, body.get('amount'), body.get('operationType'))
