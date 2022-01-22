@@ -36,3 +36,8 @@ class AccountStatusDoesNotAllowToLock(Exception):
 class AccountStatusDoesNotAllowToUnLock(Exception):
     def __init__(self):
         super().__init__('AccountStatusDoesNotAllowToUnLock')
+
+
+class AccountStatusDoesNotAllowToTransact(Exception):
+    def __init__(self):
+        super().__init__('AccountStatusDoesNotAllowToTransact')

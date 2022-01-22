@@ -2,10 +2,9 @@ from flask_restful import reqparse
 
 
 class AccountsValidator:
-    def __init__(self):
-        pass
 
-    def validate_post(self) -> dict:
+    @classmethod
+    def validate_post(cls) -> dict:
         body = reqparse.RequestParser()
 
         body.add_argument(

@@ -4,7 +4,7 @@ from src.controllers.validators.string_validator import StringValidator
 
 
 class UsersValidator:
-    def __init__(self, documents_validator, string_validator):
+    def __init__(self, documents_validator, string_validator) -> None:
         self.__document_validator: DocumentValidator = documents_validator
         self.__string_validator: StringValidator = string_validator
 

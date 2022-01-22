@@ -31,15 +31,12 @@ class AccountsService:
                                                                                              a.EXISTING_ACCOUNT_STATUS)
         return True if existing_account is not None else False
 
+    def update_balance(self, account: a.Accounts, amount: float, operation: str) -> None:
+        from src.domain.models.transactions import TransactionTypes
 
-    def check_availability_to_close(self, account_status: str) -> bool:
-        return True if account_status in a.STATUS_TO_CLOSE else False
+        if operation == TransactionTypes.DEPOSIT:
+            current_balance = account.balance + amount
+        else:
+            current_balance = account.balance - amount
 
-    def check_availability_to_lock(self, account_status: str) -> bool:
-        return True if account_status in a.STATUS_TO_LOCK else False
-
-    def check_availability_to_unlock(self, account_status: str) -> bool:
-        return True if account_status in a.STATUS_TO_UNLOCK else False
-
-    def get_account_of_user(self, user_id: int):
-        self.__accounts_repository
+        self.__accounts_repository.update_balance(account, current_balance)

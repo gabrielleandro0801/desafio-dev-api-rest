@@ -12,18 +12,6 @@ EXISTING_ACCOUNT_STATUS = [
     AccountsStatus.LOCKED
 ]
 
-STATUS_TO_LOCK = [
-    AccountsStatus.ACTIVE
-]
-
-STATUS_TO_UNLOCK = [
-    AccountsStatus.LOCKED
-]
-
-STATUS_TO_CLOSE = [
-    AccountsStatus.ACTIVE
-]
-
 
 class Accounts(db.Model):
     __tablename__ = "accounts"

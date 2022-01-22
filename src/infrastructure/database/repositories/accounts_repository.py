@@ -36,3 +36,8 @@ class AccountsRepository:
     def update_status(cls, account: a.Accounts, status: str) -> None:
         db.session.query(a.Accounts).filter(a.Accounts.id == account.id).update({a.Accounts.status: status})
         db.session.commit()
+
+    @classmethod
+    def update_balance(cls, account: a.Accounts, current_balance: float):
+        db.session.query(a.Accounts).filter(a.Accounts.id == account.id).update({a.Accounts.balance: current_balance})
+        db.session.commit()

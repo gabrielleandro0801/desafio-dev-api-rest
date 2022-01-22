@@ -39,7 +39,7 @@ class AccountsController(Resource):
 
 
 class AccountsControllerById(Resource):
-    def __init__(self, application_service):
+    def __init__(self, application_service) -> None:
         self.__application_service: ApplicationService = application_service
 
     def get(self, account_id: int):
@@ -74,7 +74,7 @@ class AccountsControllerById(Resource):
 
 
 class AccountsLockControllerById(Resource):
-    def __init__(self, application_service):
+    def __init__(self, application_service) -> None:
         self.__application_service: ApplicationService = application_service
 
     def post(self, account_id: int):
