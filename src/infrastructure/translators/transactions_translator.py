@@ -1,6 +1,6 @@
 from typing import Any, List
 
-import src.domain.models.transactions as t
+from src.domain.models.transactions import Transactions
 
 
 class TransactionsTranslator:
@@ -27,7 +27,7 @@ class TransactionsTranslator:
     def translate_transaction_from_body(cls, body: dict):
         from datetime import datetime
 
-        return t.Transactions(
+        return Transactions(
             value=body.get('amount'),
             type=body.get('operationType'),
             date=datetime.now(),
@@ -35,7 +35,7 @@ class TransactionsTranslator:
         )
 
     @classmethod
-    def get_sum_of_withdraws(cls, transactions: List[t.Transactions]) -> float:
+    def get_sum_of_withdraws(cls, transactions: List[Transactions]) -> float:
         total: float = 0
 
         for transaction in transactions:

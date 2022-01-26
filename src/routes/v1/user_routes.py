@@ -16,7 +16,7 @@ def add_routes(api: Api) -> Api:
 
     api.add_resource(
         UsersControllerById,
-        '/v1/users/<user_id>',
+        '/v1/users/<int:user_id>',
         resource_class_kwargs={
             'application_service': create_application_service()
         }

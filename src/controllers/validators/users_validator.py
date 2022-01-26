@@ -1,6 +1,7 @@
 from flask_restful import reqparse
+
 from src.controllers.validators.document_validator import DocumentValidator
-from src.controllers.validators.string_validator import StringValidator
+from src.controllers.validators.types_validator import StringValidator
 
 
 class UsersValidator:

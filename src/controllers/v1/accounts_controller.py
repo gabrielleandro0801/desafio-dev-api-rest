@@ -2,10 +2,9 @@ from http import HTTPStatus
 from flask_restful import Resource
 
 import src.domain.exceptions.custom_exceptions as ce
-import src.domain.models.accounts as a
-
 from src.application.application_service import ApplicationService
 from src.controllers.validators.accounts_validator import AccountsValidator
+from src.domain.models.accounts import Accounts
 
 
 class AccountsController(Resource):
@@ -17,7 +16,7 @@ class AccountsController(Resource):
         body: dict = self.__accounts_validator.validate_post()
 
         try:
-            account: a.Accounts = self.__application_service.register_account(body)
+            account: Accounts = self.__application_service.register_account(body)
         except ce.UserNotFound:
             return {
                 'message': 'User not found'
@@ -44,7 +43,7 @@ class AccountsControllerById(Resource):
 
     def get(self, account_id: int):
         try:
-            account: a.Accounts = self.__application_service.retrieve_account(account_id)
+            account: Accounts = self.__application_service.retrieve_account(account_id)
         except ce.AccountNotFound:
             return {
                 'message': 'Account not found'

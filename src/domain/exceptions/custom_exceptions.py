@@ -43,6 +43,11 @@ class AccountStatusDoesNotAllowToTransact(Exception):
         super().__init__('AccountStatusDoesNotAllowToTransact')
 
 
+class AccountStatusDoesNotAllowToListTransactions(Exception):
+    def __init__(self):
+        super().__init__('AccountStatusDoesNotAllowToListTransactions')
+
+
 class AccountHasNoEnoughBalance(Exception):
     def __init__(self):
         super().__init__('AccountHasNoEnoughBalance')

@@ -1,17 +1,17 @@
-import src.domain.models.accounts as a
-import src.domain.models.users as u
+from src.domain.models.accounts import Accounts, AccountsStatus
+from src.domain.models.users import Users
 
 
 class AccountsTranslator:
 
     @classmethod
-    def translate_account_to_create(cls, user: u.Users) -> a.Accounts:
+    def translate_account_to_create(cls, user: Users) -> Accounts:
         DEFAULT_BANK_BRANCH: str = '0001'
         DEFAULT_WITHDRAW_LIMIT: int = 2000
         DEFAULT_ZERO_BALANCE: int = 0
 
-        return a.Accounts(
-            status='ACTIVE',
+        return Accounts(
+            status=AccountsStatus.ACTIVE,
             number=AccountsTranslator.create_account_number(user.id, user.document),
             bank_branch=DEFAULT_BANK_BRANCH,
             balance=DEFAULT_ZERO_BALANCE,

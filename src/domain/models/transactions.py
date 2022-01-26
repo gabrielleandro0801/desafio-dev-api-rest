@@ -21,3 +21,11 @@ class Transactions(db.Model):
         self.value = kwargs.get('value')
         self.date = kwargs.get('date')
         self.account_id = kwargs.get('account_id')
+
+    def to_json(self) -> dict:
+        return {
+            'id': self.id,
+            'date': self.date.isoformat(),
+            'value': self.value,
+            'operationType': self.type
+        }

@@ -28,20 +28,3 @@ CREATE TABLE public.transactions (
 	"date" timestamp(4) NOT NULL,
 	FOREIGN KEY("account_id") REFERENCES public.accounts("id")
 );
-
-insert into users (name, document) values ('Gabriel Leandro', '44697109899');
-insert into accounts (
-	number, 
-	bankBranch, 
-	balance, 
-	userId, 
-	status,
-	withdrawDailyLimit) 
-values (
-	44609, 
-	'0001',
-	1.50,
-	1,
-	'ACTIVE',
-	2000.00
-);

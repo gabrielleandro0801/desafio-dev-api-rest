@@ -1,6 +1,6 @@
 from flask_restful import reqparse
 
-from src.controllers.validators.int_validator import IntValidator
+from src.controllers.validators.types_validator import IntValidator
 
 
 class AccountsValidator:

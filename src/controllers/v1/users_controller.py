@@ -2,10 +2,9 @@ from http import HTTPStatus
 from flask_restful import Resource
 
 import src.domain.exceptions.custom_exceptions as ce
-import src.domain.models.users as u
-
 from src.application.application_service import ApplicationService
 from src.controllers.validators.users_validator import UsersValidator
+from src.domain.models.users import Users
 
 
 class UsersController(Resource):
@@ -17,7 +16,7 @@ class UsersController(Resource):
         body: dict = self.__users_validator.validate_post()
 
         try:
-            response: u.Users = self.__application_service.register_user(body)
+            response: Users = self.__application_service.register_user(body)
         except ce.DocumentAlreadyExists:
             return {
                 'message': 'There is already a user using this document'

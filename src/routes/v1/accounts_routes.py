@@ -17,7 +17,7 @@ def add_routes(api: Api) -> Api:
 
     api.add_resource(
         AccountsControllerById,
-        '/v1/accounts/<account_id>',
+        '/v1/accounts/<int:account_id>',
         resource_class_kwargs={
             'application_service': create_application_service()
         }
@@ -25,7 +25,7 @@ def add_routes(api: Api) -> Api:
 
     api.add_resource(
         AccountsLockControllerById,
-        '/v1/accounts/<account_id>/lock',
+        '/v1/accounts/<int:account_id>/lock',
         resource_class_kwargs={
             'application_service': create_application_service()
         }

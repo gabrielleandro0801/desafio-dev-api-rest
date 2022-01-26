@@ -8,7 +8,7 @@ from src.controllers.validators.transactions_validator import TransactionsValida
 
 
 class TransactionsController(Resource):
-    def __init__(self, transactions_validator, application_service):
+    def __init__(self, transactions_validator, application_service) -> None:
         self.__transactions_validator: TransactionsValidator = transactions_validator
         self.__application_service: ApplicationService = application_service
 
@@ -17,9 +17,9 @@ class TransactionsController(Resource):
 
         try:
             self.__application_service.do_transaction(body)
-        except ce.UserNotFound:
+        except ce.AccountNotFound:
             return {
-                'message': 'User not found'
+                'message': 'Account not found'
             }, HTTPStatus.NOT_FOUND
         except ce.AccountStatusDoesNotAllowToTransact:
             return {
@@ -37,3 +37,25 @@ class TransactionsController(Resource):
         return {
             'message': 'Transaction successfully performed'
         }, HTTPStatus.CREATED
+
+
+class TransactionsControllerByAccountId(Resource):
+    def __init__(self, transactions_validator, application_service) -> None:
+        self.__transactions_validator: TransactionsValidator = transactions_validator
+        self.__application_service: ApplicationService = application_service
+
+    def get(self, account_id: int):
+        arguments: dict = self.__transactions_validator.validate_get()
+
+        try:
+            response: dict = self.__application_service.get_transactions(account_id, **arguments)
+        except ce.AccountNotFound:
+            return {
+                'message': 'Account not found'
+            }, HTTPStatus.NOT_FOUND
+        except ce.AccountStatusDoesNotAllowToListTransactions:
+            return {
+                'message': 'The status of the account does not allow to consult the transactions'
+            }, HTTPStatus.BAD_REQUEST
+
+        return response, HTTPStatus.OK

@@ -12,10 +12,11 @@ class DocumentValidator:
             '14': self.__cnpj_validator.validate
         }
 
-        if str(len(document)) not in doc_types:
+        doc_length: str = str(len(document))
+        if doc_length not in doc_types:
             raise Exception
 
-        is_valid: bool = doc_types[str(len(document))](document)
+        is_valid: bool = doc_types[doc_length](document)
         if not is_valid:
             raise Exception
 
