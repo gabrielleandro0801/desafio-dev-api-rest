@@ -2,9 +2,8 @@
 
 <div id="pre_requisitos">
     <h2 align="left">Pré requisitos para execução do projeto</h2>
+    <p>Ter o <a href="https://docs.docker.com/get-docker/">Docker</a> instalado</p>
 </div>
-
-- Ter o [Docker](https://docs.docker.com/get-docker/) instalado
 
 <div id="execucao">
     <h2 align="left">Executar a API</h2>
@@ -37,7 +36,7 @@ Response - 201
 ``` json
 {
     "message": "User successfully created",
-    "userId": 1 (id único para o portador)
+    "userId": 1
 }
 ```
 
@@ -195,7 +194,7 @@ Response - 409
 </div>
 
 ### Realizar Depósito
-**POST /v1/accounts/transactions**
+**POST /v1/transactions**
 
 Request
 ``` json
@@ -228,7 +227,7 @@ Response - 404
 ```
 
 ### Realizar Saque
-**POST /v1/accounts/transactions**
+**POST /v1/transactions**
 
 Request
 ``` json
@@ -264,6 +263,57 @@ Response - 400
 ``` json
 {
     "message": "This account does not have enough balance"
+}
+```
+
+Response - 404
+``` json
+{
+    "message": "Account not found"
+}
+```
+
+### Consultar Extrato
+**GET /v1/transactions/{accountId}**
+
+Query Param | Obrigatório | Tipo | Restrições
+------ | ------ | ------ | ------
+page | Não | Inteiro | Valores mínimo e máximo: 0 e 50
+limit | Não | Inteiro | Valores mínimo e máximo: 0 e 50
+from | Não | Date ISO-8601 |
+to | Não | Date ISO-8601 | 
+
+Response - 200
+``` json
+{
+    "previousPage": null,
+    "currentPage": 0,
+    "nextPage": null,
+    "last": true,
+    "totalPages": 1,
+    "totalItems": 3,
+    "maxItemsPerPage": 50,
+    "totalItemsPage": 3,
+    "items": [
+        {
+            "id": 1,
+            "date": "2022-01-28T19:40:01.972200",
+            "value": 450.0,
+            "operationType": "DEPOSIT"
+        },
+        {
+            "id": 2,
+            "date": "2022-01-28T19:40:05.588400",
+            "value": 550.0,
+            "operationType": "DEPOSIT"
+        },
+        {
+            "id": 3,
+            "date": "2022-01-28T19:40:09.965900",
+            "value": 125.0,
+            "operationType": "DEPOSIT"
+        }
+    ]
 }
 ```
 
