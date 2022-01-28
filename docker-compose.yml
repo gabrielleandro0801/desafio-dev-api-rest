@@ -15,15 +15,15 @@ services:
     volumes:
       - ./script.sql:/docker-entrypoint-initdb.d/script.sql
 
-#  app:
-#    build: './api'
-#    ports:
-#      - 3030:5000
-#    environment:
-#      - DB_HOST=db
-#      - DB_PORT=5432
-#      - DB_USER=postgres
-#      - DB_PASSWORD=password
-#      - DB_DATABASE=postgres
-#    volumes:
-#      - .:/app
+  app:
+    build: './api'
+    ports:
+      - 5000:5000
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_DATABASE=postgres
+    volumes:
+      - .:/app

@@ -48,10 +48,12 @@ def create_application_service() -> ApplicationService:
     from api.infrastructure.database.repositories.users_repository import UsersRepository
     from api.infrastructure.translators.accounts_translator import AccountsTranslator
     from api.infrastructure.translators.transactions_translator import TransactionsTranslator
+    from api.infrastructure.translators.users_translator import UsersTranslator
 
     return ApplicationService(
         users_service=UsersService(
-            users_repository=UsersRepository
+            users_repository=UsersRepository,
+            users_translator=UsersTranslator
         ),
         accounts_service=AccountsService(
             accounts_repository=AccountsRepository,

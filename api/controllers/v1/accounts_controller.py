@@ -54,6 +54,7 @@ class AccountsControllerById(Resource):
             'accountNumber': account.number,
             'bankBranch': account.bank_branch,
             'transferDailyLimit': account.withdraw_daily_limit,
+            'balance': account.balance,
             'userId': account.user_id
         }, HTTPStatus.OK
 
