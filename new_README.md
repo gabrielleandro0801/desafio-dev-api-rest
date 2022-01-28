@@ -1,16 +1,26 @@
-# API
+<h1 align="center">Dock API</h1>
 
-## Pré requisitos para execução do projeto
-- Ter o Docker instalado
+<div id="pre_requisitos">
+    <h2 align="left">Pré requisitos para execução do projeto</h2>
+</div>
 
-## Executar a API
-``` bash
+- Ter o [Docker](https://docs.docker.com/get-docker/) instalado
+
+<div id="execucao">
+    <h2 align="left">Executar a API</h2>
+</div>
+
+``` shell
 docker-compose build && docker-compose up
 ```
 
-## Rotas
+<div id="rotas">
+    <h2 align="center">Rotas</h2>
+</div>
 
-### Portadores
+<div id="portadores">
+    <h3 align="center">Portadores</h3>
+</div>
 
 ### Criar Portador
 **POST /v1/users**
@@ -50,7 +60,9 @@ Response - 404
 }
 ```
 
-### Contas
+<div id="contas">
+    <h3 align="center">Contas</h3>
+</div>
 
 ### Criar Conta
 **POST /v1/accounts**
@@ -99,6 +111,7 @@ Response - 200
     "accountNumber": 446972,
     "bankBranch": "0001",
     "transferDailyLimit": 2000.0,
+    "balance": 2853.75,
     "userId": 2
 }
 ```
@@ -177,7 +190,9 @@ Response - 409
 }
 ```
 
-### Transações
+<div id="transacoes">
+    <h3 align="center">Transações</h3>
+</div>
 
 ### Realizar Depósito
 **POST /v1/accounts/transactions**
@@ -205,9 +220,63 @@ Response - 400
 }
 ```
 
-### Materiais de consulta
-[Link 1](https://ichi.pro/pt/criar-e-preencher-um-banco-de-dados-postgres-com-docker-compose-247804571125807)
+Response - 404
+``` json
+{
+    "message": "Account not found"
+}
+```
 
-[Link 2](https://www.youtube.com/watch?v=b6pYcTr4pCs)
+### Realizar Saque
+**POST /v1/accounts/transactions**
 
-[Link 3](https://vsupalov.com/flask-sqlalchemy-postgres/)
+Request
+``` json
+{
+    "accountId": 2,
+    "operationType": "WITHDRAW",
+    "amount": 150.50
+}
+```
+
+Response - 201
+``` json
+{
+    "message": "Transaction successfully performed"
+}
+```
+
+Response - 400
+``` json
+{
+    "message": "The status of the account does not allow transactions"
+}
+```
+
+Response - 400
+``` json
+{
+    "message": "This withdraw will surpass the daily limit"
+}
+```
+
+Response - 400
+``` json
+{
+    "message": "This account does not have enough balance"
+}
+```
+
+Response - 404
+``` json
+{
+    "message": "Account not found"
+}
+```
+
+<div id="execucao">
+    <h2 align="left">Materiais de Consulta</h2>
+    <a href="https://ichi.pro/pt/criar-e-preencher-um-banco-de-dados-postgres-com-docker-compose-247804571125807">Docker Compose + Postgres</a><br>
+    <a href="https://www.youtube.com/watch?v=b6pYcTr4pCs">Python + Postgres</a><br>
+    <a href="https://vsupalov.com/flask-sqlalchemy-postgres/">SQLAlchemy</a>
+</div>
