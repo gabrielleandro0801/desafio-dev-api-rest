@@ -15,9 +15,3 @@ class UsersService:
     def create_user(self, body: dict) -> Users:
         user: Users = self.__users_translator.translate_user_from_body(body)
         return self.__users_repository.save(user)
-
-    def get_user_by_id(self, user_id: int) -> Users or None:
-        return self.__users_repository.find_by_user_id(user_id)
-
-    def delete_user(self, user: Users) -> None:
-        self.__users_repository.delete(user)

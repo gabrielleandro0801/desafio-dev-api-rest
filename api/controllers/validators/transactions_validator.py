@@ -42,6 +42,13 @@ class TransactionsValidator:
         body = reqparse.RequestParser()
 
         body.add_argument(
+            'accountId',
+            required=True,
+            type=self.__int_validator.validate,
+            help='Param is optional and must be a valid and positive number'
+        )
+
+        body.add_argument(
             'from',
             required=False,
             type=self.__date_validator.validate,

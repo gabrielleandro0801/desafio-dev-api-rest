@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from flask_restful import Resource
 
-import api.domain.exceptions.custom_exceptions as ce
+import api.domain.custom_exceptions as ce
 from api.application.application_service import ApplicationService
 from api.controllers.validators.users_validator import UsersValidator
 from api.domain.models.users import Users
@@ -24,7 +24,7 @@ class UsersController(Resource):
 
         return {
             'message': 'User successfully created',
-            'userId': response.id
+            'id': response.id
         }, HTTPStatus.CREATED
 
 

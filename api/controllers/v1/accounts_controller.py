@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from flask_restful import Resource
 
-import api.domain.exceptions.custom_exceptions as ce
+import api.domain.custom_exceptions as ce
 from api.application.application_service import ApplicationService
 from api.controllers.validators.accounts_validator import AccountsValidator
 from api.domain.models.accounts import Accounts
@@ -27,13 +27,10 @@ class AccountsController(Resource):
             }, HTTPStatus.UNPROCESSABLE_ENTITY
 
         return {
-            'message': 'Account successfully created',
-            'data': {
-               'accountId': account.id,
-               'accountNumber': account.number,
-               'bankBranch': account.bank_branch,
-               'withdrawDailyLimit': account.withdraw_daily_limit
-            }
+           'accountId': account.id,
+           'accountNumber': account.number,
+           'bankBranch': account.bank_branch,
+           'withdrawDailyLimit': account.withdraw_daily_limit
         }, HTTPStatus.CREATED
 
 
@@ -89,9 +86,7 @@ class AccountsLockControllerById(Resource):
                 'message': 'The account must be active in order to be locked'
             }, HTTPStatus.CONFLICT
 
-        return {
-            'message': 'The account has been successfully locked'
-        }, HTTPStatus.OK
+        return '', HTTPStatus.NO_CONTENT
 
     def delete(self, account_id: int):
         try:
@@ -105,6 +100,4 @@ class AccountsLockControllerById(Resource):
                 'message': 'The account must be locked in order to be unlocked'
             }, HTTPStatus.CONFLICT
 
-        return {
-            'message': 'The account has been successfully unlocked'
-        }, HTTPStatus.OK
+        return '', HTTPStatus.NO_CONTENT

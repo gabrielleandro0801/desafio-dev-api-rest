@@ -1,4 +1,7 @@
-from api.application.application_service import ApplicationService
+from api.application.accounts_application_service import AccountsApplicationService
+from api.application.transactions_application_service import TransactionsApplicationService
+from api.application.users_application_service import UsersApplicationService
+
 from api.controllers.validators.accounts_validator import AccountsValidator
 from api.controllers.validators.transactions_validator import TransactionsValidator
 from api.controllers.validators.users_validator import UsersValidator
@@ -38,30 +41,30 @@ def create_transactions_validator() -> TransactionsValidator:
     )
 
 
-def create_application_service() -> ApplicationService:
+def create_users_application_service() -> UsersApplicationService:
     from api.domain.services.accounts_service import AccountsService
-    from api.domain.services.transactions_service import TransactionsService
     from api.domain.services.users_service import UsersService
-    from api.domain.validators.account_status_validator import AccountStatusValidator
     from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
-    from api.infrastructure.database.repositories.transactions_repository import TransactionsRepository
     from api.infrastructure.database.repositories.users_repository import UsersRepository
     from api.infrastructure.translators.accounts_translator import AccountsTranslator
-    from api.infrastructure.translators.transactions_translator import TransactionsTranslator
     from api.infrastructure.translators.users_translator import UsersTranslator
 
-    return ApplicationService(
+    return UsersApplicationService(
         users_service=UsersService(
             users_repository=UsersRepository,
             users_translator=UsersTranslator
         ),
+        users_repository=UsersRepository,
         accounts_service=AccountsService(
             accounts_repository=AccountsRepository,
             accounts_translator=AccountsTranslator
-        ),
-        transactions_service=TransactionsService(
-            transactions_repository=TransactionsRepository,
-            transactions_translator=TransactionsTranslator
-        ),
-        account_status_validator=AccountStatusValidator
+        )
     )
+
+
+def create_accounts_application_service() -> AccountsApplicationService:
+    pass
+
+
+def create_transactions_application_service() -> TransactionsApplicationService:
+    pass

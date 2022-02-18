@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-import api.domain.exceptions.custom_exceptions as ce
+import api.domain.custom_exceptions as ce
 from api.domain.models.accounts import Accounts
 from api.domain.models.transactions import Transactions
 
@@ -43,8 +43,7 @@ class WithdrawService(TransactionService):
 
 
 class TransactionsService:
-    def __init__(self, transactions_repository, transactions_translator) -> None:
-        self.__transactions_repository: TransactionsRepository = transactions_repository
+    def __init__(self, transactions_translator) -> None:
         self.__transactions_translator: TransactionsTranslator = transactions_translator
 
     def do_transaction(self, body: dict, account: Accounts) -> None:
@@ -52,6 +51,3 @@ class TransactionsService:
 
         service: TransactionService = self.__transactions_translator.get_operation_type(transaction.type)
         service.do(transaction, account)
-
-    def list_transactions(self, account_id: int, **kwargs) -> dict:
-        return self.__transactions_repository.get_transactions_from_period(account_id, **kwargs)

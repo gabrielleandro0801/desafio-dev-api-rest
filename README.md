@@ -36,7 +36,7 @@ Response - 201
 ``` json
 {
     "message": "User successfully created",
-    "userId": 1
+    "id": 1
 }
 ```
 
@@ -76,13 +76,10 @@ Request
 Response - 201
 ``` json
 {
-    "message": "Account successfully created",
-    "data": {
-        "accountId": 1,
-        "accountNumber": 446972,
-        "bankBranch": "0001",
-        "withdrawDailyLimit": 2000.0
-    }
+    "accountId": 1,
+    "accountNumber": 446972,
+    "bankBranch": "0001",
+    "withdrawDailyLimit": 2000.0
 }
 ```
 
@@ -212,7 +209,7 @@ Response - 201
 }
 ```
 
-Response - 400
+Response - 422
 ``` json
 {
     "message": "The status of the account does not allow transactions"
@@ -245,21 +242,21 @@ Response - 201
 }
 ```
 
-Response - 400
+Response - 422
 ``` json
 {
     "message": "The status of the account does not allow transactions"
 }
 ```
 
-Response - 400
+Response - 422
 ``` json
 {
     "message": "This withdraw will surpass the daily limit"
 }
 ```
 
-Response - 400
+Response - 422
 ``` json
 {
     "message": "This account does not have enough balance"
