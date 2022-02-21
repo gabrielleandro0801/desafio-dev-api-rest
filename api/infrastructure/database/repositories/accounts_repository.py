@@ -11,7 +11,6 @@ class AccountsRepository:
     def find_by_user_id_and_status(cls, user_id: int, status: List[str]) -> Accounts or None:
         query: BaseQuery = Accounts.query.filter(Accounts.user_id == user_id, Accounts.status.in_(status))
         account = query.first()
-        db.session.commit()
         return account
 
     @classmethod
@@ -24,7 +23,6 @@ class AccountsRepository:
     def find_by_account_id(cls, account_id: int) -> Accounts or None:
         query: BaseQuery = Accounts.query.filter(Accounts.id == account_id)
         account = query.first()
-        db.session.commit()
         return account
 
     @classmethod

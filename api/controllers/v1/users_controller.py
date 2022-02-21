@@ -2,7 +2,7 @@ from http import HTTPStatus
 from flask_restful import Resource
 
 import api.domain.custom_exceptions as ce
-from api.application.application_service import ApplicationService
+from api.application.users_application_service import UsersApplicationService
 from api.controllers.validators.users_validator import UsersValidator
 from api.domain.models.users import Users
 
@@ -10,7 +10,7 @@ from api.domain.models.users import Users
 class UsersController(Resource):
     def __init__(self, users_validator, application_service) -> None:
         self.__users_validator: UsersValidator = users_validator
-        self.__application_service: ApplicationService = application_service
+        self.__application_service: UsersApplicationService = application_service
 
     def post(self):
         body: dict = self.__users_validator.validate_post()
@@ -30,7 +30,7 @@ class UsersController(Resource):
 
 class UsersControllerById(Resource):
     def __init__(self, application_service) -> None:
-        self.__application_service: ApplicationService = application_service
+        self.__application_service: UsersApplicationService = application_service
 
     def delete(self, user_id: int):
         try:

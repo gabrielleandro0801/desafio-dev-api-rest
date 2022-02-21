@@ -1,6 +1,6 @@
 from flask_restful import Api
 
-from api.controllers.v1.factories import create_application_service, create_user_validator
+from api.controllers.v1.factories import create_users_application_service, create_user_validator
 from api.controllers.v1.users_controller import UsersController, UsersControllerById
 
 
@@ -10,7 +10,7 @@ def add_routes(api: Api) -> Api:
         '/v1/users',
         resource_class_kwargs={
             'users_validator': create_user_validator(),
-            'application_service': create_application_service()
+            'application_service': create_users_application_service()
         }
     )
 
@@ -18,7 +18,7 @@ def add_routes(api: Api) -> Api:
         UsersControllerById,
         '/v1/users/<int:user_id>',
         resource_class_kwargs={
-            'application_service': create_application_service()
+            'application_service': create_users_application_service()
         }
     )
     return api

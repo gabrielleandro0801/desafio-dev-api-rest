@@ -39,4 +39,4 @@ class TransactionsApplicationService:
         if not is_valid:
             raise ce.AccountStatusDoesNotAllowToListTransactions
 
-        return self.__transactions_repository.get_transactions_from_period(kwargs.get('accountId'), **kwargs)
+        return self.__transactions_repository.get_transactions_from_period(**kwargs)

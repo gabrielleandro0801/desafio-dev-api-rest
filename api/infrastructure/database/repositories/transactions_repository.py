@@ -19,12 +19,11 @@ class TransactionsRepository:
                                                      Transactions.type == TransactionTypes.WITHDRAW,
                                                      Transactions.date >= datetime.now().strftime('%Y-%m-%d'))
         transactions = query.all()
-        db.session.commit()
         return transactions
 
     @classmethod
-    def get_transactions_from_period(cls, account_id: int, **kwargs) -> dict:
-        query: BaseQuery = Transactions.query.filter(Transactions.account_id == account_id)
+    def get_transactions_from_period(cls, **kwargs) -> dict:
+        query: BaseQuery = Transactions.query.filter(Transactions.account_id == kwargs.get('accountId'))
 
         if kwargs.get("from") is not None:
             query = query.filter(Transactions.date >= kwargs.get("from"))
@@ -36,5 +35,4 @@ class TransactionsRepository:
         transactions: Pagination = query.paginate(page=page, error_out=False, max_per_page=limit)
 
         response: dict = paginated_result(Transactions, transactions, limit)
-        db.session.commit()
         return response

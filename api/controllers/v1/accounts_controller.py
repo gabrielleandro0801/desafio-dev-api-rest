@@ -2,7 +2,7 @@ from http import HTTPStatus
 from flask_restful import Resource
 
 import api.domain.custom_exceptions as ce
-from api.application.application_service import ApplicationService
+from api.application.accounts_application_service import AccountsApplicationService
 from api.controllers.validators.accounts_validator import AccountsValidator
 from api.domain.models.accounts import Accounts
 
@@ -10,7 +10,7 @@ from api.domain.models.accounts import Accounts
 class AccountsController(Resource):
     def __init__(self, accounts_validator, application_service) -> None:
         self.__accounts_validator: AccountsValidator = accounts_validator
-        self.__application_service: ApplicationService = application_service
+        self.__application_service: AccountsApplicationService = application_service
 
     def post(self):
         body: dict = self.__accounts_validator.validate_post()
@@ -36,7 +36,7 @@ class AccountsController(Resource):
 
 class AccountsControllerById(Resource):
     def __init__(self, application_service) -> None:
-        self.__application_service: ApplicationService = application_service
+        self.__application_service: AccountsApplicationService = application_service
 
     def get(self, account_id: int):
         try:
@@ -72,7 +72,7 @@ class AccountsControllerById(Resource):
 
 class AccountsLockControllerById(Resource):
     def __init__(self, application_service) -> None:
-        self.__application_service: ApplicationService = application_service
+        self.__application_service: AccountsApplicationService = application_service
 
     def post(self, account_id: int):
         try:

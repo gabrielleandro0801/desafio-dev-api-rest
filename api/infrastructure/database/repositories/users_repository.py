@@ -9,15 +9,13 @@ class UsersRepository:
     @classmethod
     def find_by_user_id(cls, user_id: int) -> Users or None:
         query: BaseQuery = Users.query.filter(Users.id == user_id)
-        user = query.first()
-        db.session.commit()
+        user: Users or None = query.first()
         return user
 
     @classmethod
     def find_by_document(cls, document: str) -> Users or None:
         query = Users.query.filter(Users.document == document)
         user: Users or None = query.first()
-        db.session.commit()
         return user
 
     @classmethod
