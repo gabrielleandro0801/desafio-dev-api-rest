@@ -45,13 +45,15 @@ class TransactionsValidator:
             'accountId',
             required=True,
             type=self.__int_validator.validate,
-            help='Param is optional and must be a valid and positive number'
+            location='args',
+            help='Param is required and must be a valid and positive number'
         )
 
         body.add_argument(
             'from',
             required=False,
             type=self.__date_validator.validate,
+            location='args',
             help='Param is optional and must be a valid date in ISO-8061 format (YYYY-MM-DDT00:00:00.000Z)'
         )
 
@@ -59,7 +61,8 @@ class TransactionsValidator:
             'to',
             required=False,
             type=self.__date_validator.validate,
-            help='Param is optional and must be a valid date in ISO-8061 format (YYYY-MM-DDT00:00:00.000Z)'
+            location='args',
+            help='Param is optional and must be a valid date in ISO-8061 format (YYYY-MM-DDT00:00:00.000Z)',
         )
 
         body.add_argument(
@@ -67,7 +70,8 @@ class TransactionsValidator:
             required=False,
             type=self.__int_validator.validate,
             default=0,
-            help='Param is optional and must be a valid and positive number'
+            location='args',
+            help='Param is optional and must be a valid and positive number',
         )
 
         body.add_argument(
@@ -75,6 +79,7 @@ class TransactionsValidator:
             required=False,
             type=self.__int_validator.validate,
             default=50,
+            location='args',
             help='Param is optional and must be a valid and positive number'
         )
         return body.parse_args()

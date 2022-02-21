@@ -63,8 +63,41 @@ def create_users_application_service() -> UsersApplicationService:
 
 
 def create_accounts_application_service() -> AccountsApplicationService:
-    pass
+    from api.domain.services.accounts_service import AccountsService
+    from api.domain.validators.account_status_validator import AccountStatusValidator
+    from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
+    from api.infrastructure.database.repositories.users_repository import UsersRepository
+    from api.infrastructure.translators.accounts_translator import AccountsTranslator
+
+    return AccountsApplicationService(
+        users_repository=UsersRepository,
+        accounts_repository=AccountsRepository,
+        accounts_service=AccountsService(
+            accounts_repository=AccountsRepository,
+            accounts_translator=AccountsTranslator
+        ),
+        account_status_validator=AccountStatusValidator
+    )
 
 
 def create_transactions_application_service() -> TransactionsApplicationService:
-    pass
+    from api.domain.services.accounts_service import AccountsService
+    from api.domain.services.transactions_service import TransactionsService
+    from api.domain.validators.account_status_validator import AccountStatusValidator
+    from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
+    from api.infrastructure.database.repositories.transactions_repository import TransactionsRepository
+    from api.infrastructure.translators.accounts_translator import AccountsTranslator
+    from api.infrastructure.translators.transactions_translator import TransactionsTranslator
+
+    return TransactionsApplicationService(
+        account_status_validator=AccountStatusValidator,
+        accounts_service=AccountsService(
+            accounts_repository=AccountsRepository,
+            accounts_translator=AccountsTranslator
+        ),
+        accounts_repository=AccountsRepository,
+        transactions_service=TransactionsService(
+            transactions_translator=TransactionsTranslator
+        ),
+        transactions_repository=TransactionsRepository
+    )
