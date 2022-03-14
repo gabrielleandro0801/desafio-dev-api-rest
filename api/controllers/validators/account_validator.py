@@ -3,7 +3,7 @@ from flask_restful import reqparse
 from api.controllers.validators.types_validator import IntValidator
 
 
-class AccountsValidator:
+class AccountValidator:
     def __init__(self, int_validator):
         self.__int_validator: IntValidator = int_validator
 

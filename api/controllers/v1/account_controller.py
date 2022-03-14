@@ -2,21 +2,21 @@ from http import HTTPStatus
 from flask_restful import Resource
 
 import api.domain.custom_exceptions as ce
-from api.application.accounts_application_service import AccountsApplicationService
-from api.controllers.validators.accounts_validator import AccountsValidator
-from api.domain.models.accounts import Accounts
+from api.application.account_application_service import AccountApplicationService
+from api.controllers.validators.account_validator import AccountValidator
+from api.domain.models.account import Account
 
 
-class AccountsController(Resource):
-    def __init__(self, accounts_validator, application_service) -> None:
-        self.__accounts_validator: AccountsValidator = accounts_validator
-        self.__application_service: AccountsApplicationService = application_service
+class AccountController(Resource):
+    def __init__(self, account_validator, application_service) -> None:
+        self.__account_validator: AccountValidator = account_validator
+        self.__application_service: AccountApplicationService = application_service
 
     def post(self):
-        body: dict = self.__accounts_validator.validate_post()
+        body: dict = self.__account_validator.validate_post()
 
         try:
-            account: Accounts = self.__application_service.register_account(body)
+            account: Account = self.__application_service.register_account(body)
         except ce.UserNotFound:
             return {
                 'message': 'User not found'
@@ -34,13 +34,13 @@ class AccountsController(Resource):
         }, HTTPStatus.CREATED
 
 
-class AccountsControllerById(Resource):
+class AccountControllerById(Resource):
     def __init__(self, application_service) -> None:
-        self.__application_service: AccountsApplicationService = application_service
+        self.__application_service: AccountApplicationService = application_service
 
     def get(self, account_id: int):
         try:
-            account: Accounts = self.__application_service.retrieve_account(account_id)
+            account: Account = self.__application_service.retrieve_account(account_id)
         except ce.AccountNotFound:
             return {
                 'message': 'Account not found'
@@ -70,9 +70,9 @@ class AccountsControllerById(Resource):
         return '', HTTPStatus.NO_CONTENT
 
 
-class AccountsLockControllerById(Resource):
+class AccountLockControllerById(Resource):
     def __init__(self, application_service) -> None:
-        self.__application_service: AccountsApplicationService = application_service
+        self.__application_service: AccountApplicationService = application_service
 
     def post(self, account_id: int):
         try:

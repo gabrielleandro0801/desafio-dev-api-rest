@@ -6,7 +6,7 @@ class TransactionTypes:
     WITHDRAW = 'WITHDRAW'
 
 
-class Transactions(db.Model):
+class Transaction(db.Model):
     __tablename__ = "transactions"
 
     id = db.Column('id', db.Integer, primary_key=True)

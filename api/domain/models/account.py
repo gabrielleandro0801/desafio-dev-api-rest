@@ -13,7 +13,7 @@ EXISTING_ACCOUNT_STATUS = [
 ]
 
 
-class Accounts(db.Model):
+class Account(db.Model):
     __tablename__ = "accounts"
 
     id = db.Column('id', db.Integer, primary_key=True)

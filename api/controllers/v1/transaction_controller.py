@@ -3,17 +3,17 @@ from http import HTTPStatus
 from flask_restful import Resource
 
 import api.domain.custom_exceptions as ce
-from api.application.transactions_application_service import TransactionsApplicationService
-from api.controllers.validators.transactions_validator import TransactionsValidator
+from api.application.transaction_application_service import TransactionApplicationService
+from api.controllers.validators.transaction_validator import TransactionValidator
 
 
-class TransactionsController(Resource):
-    def __init__(self, transactions_validator, application_service) -> None:
-        self.__transactions_validator: TransactionsValidator = transactions_validator
-        self.__application_service: TransactionsApplicationService = application_service
+class TransactionController(Resource):
+    def __init__(self, transaction_validator, application_service) -> None:
+        self.__transaction_validator: TransactionValidator = transaction_validator
+        self.__application_service: TransactionApplicationService = application_service
 
     def post(self):
-        body: dict = self.__transactions_validator.validate_post()
+        body: dict = self.__transaction_validator.validate_post()
 
         try:
             self.__application_service.do_transaction(body)
@@ -39,7 +39,7 @@ class TransactionsController(Resource):
         }, HTTPStatus.CREATED
 
     def get(self):
-        arguments: dict = self.__transactions_validator.validate_get()
+        arguments: dict = self.__transaction_validator.validate_get()
 
         try:
             response: dict = self.__application_service.list_transactions(**arguments)

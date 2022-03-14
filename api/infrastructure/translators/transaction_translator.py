@@ -1,15 +1,15 @@
 from typing import Any, List
 
-from api.domain.models.transactions import Transactions
+from api.domain.models.transaction import Transaction
 
 
-class TransactionsTranslator:
+class TransactionTranslator:
 
     @classmethod
     def get_operation_type(cls, operation: str) -> Any:
-        from api.domain.models.transactions import TransactionTypes
-        from api.domain.services.transactions_service import DepositService
-        from api.domain.services.transactions_service import WithdrawService
+        from api.domain.models.transaction import TransactionTypes
+        from api.domain.services.transaction_service import DepositService
+        from api.domain.services.transaction_service import WithdrawService
         from api.infrastructure.database.repositories.transactions_repository import TransactionsRepository
 
         options: dict = {
@@ -18,7 +18,7 @@ class TransactionsTranslator:
             ),
             TransactionTypes.WITHDRAW: WithdrawService(
                 transactions_repository=TransactionsRepository,
-                transactions_translator=TransactionsTranslator
+                transactions_translator=TransactionTranslator
             )
         }
         return options.get(operation)
@@ -27,7 +27,7 @@ class TransactionsTranslator:
     def translate_transaction_from_body(cls, body: dict):
         from datetime import datetime
 
-        return Transactions(
+        return Transaction(
             value=body.get('amount'),
             type=body.get('operationType'),
             date=datetime.now(),
@@ -35,7 +35,7 @@ class TransactionsTranslator:
         )
 
     @classmethod
-    def get_sum_of_withdraws(cls, transactions: List[Transactions]) -> float:
+    def get_sum_of_withdraws(cls, transactions: List[Transaction]) -> float:
         total: float = 0
 
         for transaction in transactions:

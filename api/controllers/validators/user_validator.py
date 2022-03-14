@@ -4,9 +4,9 @@ from api.controllers.validators.document_validator import DocumentValidator
 from api.controllers.validators.types_validator import StringValidator
 
 
-class UsersValidator:
-    def __init__(self, documents_validator, string_validator) -> None:
-        self.__document_validator: DocumentValidator = documents_validator
+class UserValidator:
+    def __init__(self, document_validator, string_validator) -> None:
+        self.__document_validator: DocumentValidator = document_validator
         self.__string_validator: StringValidator = string_validator
 
     def validate_post(self) -> dict:

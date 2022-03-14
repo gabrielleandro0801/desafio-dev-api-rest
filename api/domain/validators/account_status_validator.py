@@ -1,4 +1,4 @@
-from api.domain.models.accounts import AccountsStatus
+from api.domain.models.account import AccountsStatus
 
 
 class AccountStatusValidator:

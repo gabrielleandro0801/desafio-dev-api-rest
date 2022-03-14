@@ -2,8 +2,8 @@ from flask import Flask
 from flask_restful import Api
 
 import api.infrastructure.database.connection.db_connection as database
-import api.routes.v1.accounts_routes as v1_accounts
-import api.routes.v1.transactions_routes as v1_transactions
+import api.routes.v1.account_routes as v1_accounts
+import api.routes.v1.transaction_routes as v1_transactions
 import api.routes.v1.user_routes as v1_user
 
 app: Flask = Flask(__name__)

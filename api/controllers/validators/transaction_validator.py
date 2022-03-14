@@ -1,10 +1,10 @@
 from flask_restful import reqparse
 
 from api.controllers.validators.types_validator import FloatValidator, DateValidator, IntValidator
-from api.domain.models.transactions import TransactionTypes
+from api.domain.models.transaction import TransactionTypes
 
 
-class TransactionsValidator:
+class TransactionValidator:
     def __init__(self, transaction_types, float_validator, int_validator, date_validator) -> None:
         self.__transaction_types: TransactionTypes = transaction_types
         self.__float_validator: FloatValidator = float_validator

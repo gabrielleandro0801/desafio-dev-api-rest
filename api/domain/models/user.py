@@ -1,7 +1,7 @@
 from api.infrastructure.database.connection.db_connection import db
 
 
-class Users(db.Model):
+class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column('id', db.Integer, unique=True, primary_key=True)
