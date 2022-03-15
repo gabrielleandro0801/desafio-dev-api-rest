@@ -34,5 +34,5 @@ class TransactionsRepository:
         page, limit = get_pagination_limit_and_page(kwargs.get("page"), kwargs.get("limit"))
         transactions: Pagination = query.paginate(page=page, error_out=False, max_per_page=limit)
 
-        response: dict = paginated_result(Transaction, transactions, limit)
+        response: dict = paginated_result(Transaction.to_json, transactions, limit)
         return response

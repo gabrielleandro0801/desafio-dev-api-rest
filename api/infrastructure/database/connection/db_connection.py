@@ -21,8 +21,8 @@ def start_connection(app: Flask) -> None:
     db.init_app(app=app)
 
 
-def get_page_number(p: int) -> int or None:
-    return p - 1 if p is not None else None
+def get_page_number(page: int) -> int or None:
+    return page - 1 if page is not None else None
 
 
 def get_pagination_limit_and_page(page: int, limit: int) -> Tuple[int, int]:
@@ -31,10 +31,10 @@ def get_pagination_limit_and_page(page: int, limit: int) -> Tuple[int, int]:
     return page, limit
 
 
-def paginated_result(model: Any, result: Pagination, limit: int) -> dict:
+def paginated_result(command: Any, result: Pagination, limit: int) -> dict:
     items: List[dict] = list(
         map(
-            model.to_json,  # Method we are iterating the loop
+            command,  # Method we are iterating the loop
             result.items  # Loop we are iterating
         )
     )

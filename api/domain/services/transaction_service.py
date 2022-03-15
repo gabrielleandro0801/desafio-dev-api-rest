@@ -4,8 +4,8 @@ from typing import List
 import api.domain.custom_exceptions as ce
 from api.domain.models.account import Account
 from api.domain.models.transaction import Transaction
-
 from api.infrastructure.database.repositories.transactions_repository import TransactionsRepository
+from api.infrastructure.log import logger
 from api.infrastructure.translators.transaction_translator import TransactionTranslator
 
 
@@ -31,12 +31,14 @@ class WithdrawService(AbstractTransactionService):
 
     def do(self, transaction: Transaction, account: Account) -> None:
         if transaction.value > account.balance:
+            logger.warning({"message": "This account does not have enough balance", "id": account.id})
             raise ce.AccountHasNoEnoughBalance
 
         withdraws: List[Transaction] = self.__transactions_repository.get_withdraws_of_the_day(account.id)
         total: float = self.__transaction_translator.get_sum_of_withdraws(withdraws)
 
         if (total + transaction.value) > account.withdraw_daily_limit:
+            logger.warning({"message": "This transaction will surpass the daily limit", "value": transaction.value})
             raise ce.WithdrawSurpassesDailyLimitBalance
 
         self.__transactions_repository.save(transaction)
