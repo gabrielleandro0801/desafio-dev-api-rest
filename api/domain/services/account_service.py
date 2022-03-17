@@ -1,4 +1,4 @@
-from api.domain.models.account import Account, AccountsStatus, EXISTING_ACCOUNT_STATUS
+from api.domain.models.account import Account, AccountStatus, EXISTING_ACCOUNT_STATUS
 from api.domain.models.user import User
 from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
 from api.infrastructure.translators.account_translator import AccountTranslator
@@ -14,10 +14,10 @@ class AccountService:
         return self.__accounts_repository.create_account(account)
 
     def lock_account(self, account: Account) -> None:
-        self.__accounts_repository.update_status(account, AccountsStatus.LOCKED)
+        self.__accounts_repository.update_status(account, AccountStatus.LOCKED)
 
     def unlock_account(self, account: Account) -> None:
-        self.__accounts_repository.update_status(account, AccountsStatus.ACTIVE)
+        self.__accounts_repository.update_status(account, AccountStatus.ACTIVE)
 
     def retrieve_existing_account_by_user_id(self, user_id: int) -> bool:
         existing_account: Account = self.__accounts_repository.find_by_user_id_and_status(user_id,

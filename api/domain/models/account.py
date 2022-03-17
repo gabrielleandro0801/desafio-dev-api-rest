@@ -1,15 +1,15 @@
 from api.infrastructure.database.connection.db_connection import db
 
 
-class AccountsStatus:
+class AccountStatus:
     ACTIVE = 'ACTIVE'
     LOCKED = 'LOCKED'
     CLOSED = 'CLOSED'
 
 
 EXISTING_ACCOUNT_STATUS = [
-    AccountsStatus.ACTIVE,
-    AccountsStatus.LOCKED
+    AccountStatus.ACTIVE,
+    AccountStatus.LOCKED
 ]
 
 

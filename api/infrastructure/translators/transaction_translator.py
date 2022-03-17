@@ -18,7 +18,7 @@ class TransactionTranslator:
             ),
             TransactionTypes.WITHDRAW: WithdrawService(
                 transactions_repository=TransactionsRepository,
-                transactions_translator=TransactionTranslator
+                transaction_translator=TransactionTranslator
             )
         }
         return options.get(operation)

@@ -1,4 +1,4 @@
-from api.domain.models.account import Account, AccountsStatus
+from api.domain.models.account import Account, AccountStatus
 from api.domain.models.user import User
 
 
@@ -11,7 +11,7 @@ class AccountTranslator:
         DEFAULT_ZERO_BALANCE: int = 0
 
         return Account(
-            status=AccountsStatus.ACTIVE,
+            status=AccountStatus.ACTIVE,
             number=AccountTranslator.create_account_number(user.id, user.document),
             bank_branch=DEFAULT_BANK_BRANCH,
             balance=DEFAULT_ZERO_BALANCE,
