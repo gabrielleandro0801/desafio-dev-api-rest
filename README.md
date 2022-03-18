@@ -112,7 +112,7 @@ Response - 200
 }
 ```
 
-Response - 200
+Response - 404
 ``` json
 {
     "message": "Account not found"
@@ -141,12 +141,7 @@ Response - 409
 ### Bloquear Conta
 **POST /v1/accounts/{accountId}/lock**
 
-Response - 200
-``` json
-{
-    "message": "The account has been successfully locked"
-}
-```
+Response - 204
 
 Response - 404
 ``` json
@@ -165,12 +160,7 @@ Response - 409
 ### Desbloquear Conta
 **DELETE /v1/accounts/{accountId}/lock**
 
-Response - 200
-``` json
-{
-    "message": "The account has been successfully unlocked"
-}
-```
+Response - 204
 
 Response - 404
 ``` json
