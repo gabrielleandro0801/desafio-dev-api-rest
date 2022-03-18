@@ -14,9 +14,9 @@ from api.infrastructure.log import logger
 class TransactionApplicationService:
     def __init__(self, **kwargs):
         self.__account_status_validator: AccountStatusValidator = kwargs.get('account_status_validator')
-        self.__account_service: AccountService = kwargs.get('accounts_service')
+        self.__account_service: AccountService = kwargs.get('account_service')
         self.__accounts_repository: AccountsRepository = kwargs.get('accounts_repository')
-        self.__transaction_service: TransactionService = kwargs.get('transactions_service')
+        self.__transaction_service: TransactionService = kwargs.get('transaction_service')
         self.__transactions_repository: TransactionsRepository = kwargs.get('transactions_repository')
 
     def do_transaction(self, body: dict) -> None:

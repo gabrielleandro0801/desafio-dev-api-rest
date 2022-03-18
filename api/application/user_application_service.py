@@ -9,9 +9,9 @@ from api.infrastructure.log import logger
 
 class UserApplicationService:
     def __init__(self, **kwargs):
-        self.__user_service: UserService = kwargs.get('users_service')
+        self.__user_service: UserService = kwargs.get('user_service')
         self.__users_repository: UsersRepository = kwargs.get('users_repository')
-        self.__account_service: AccountService = kwargs.get('accounts_service')
+        self.__account_service: AccountService = kwargs.get('account_service')
 
     def register_user(self, body: dict) -> User:
         logger.info({"message": "Creating user", "body": body})
