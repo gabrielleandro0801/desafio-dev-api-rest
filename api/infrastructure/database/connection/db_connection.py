@@ -34,8 +34,8 @@ def get_pagination_limit_and_page(page: int, limit: int) -> Tuple[int, int]:
 def paginated_result(command: Any, result: Pagination, limit: int) -> dict:
     items: List[dict] = list(
         map(
-            command,  # Method we are iterating the loop
-            result.items  # Loop we are iterating
+            command,
+            result.items
         )
     )
 
