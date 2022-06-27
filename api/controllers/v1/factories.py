@@ -64,7 +64,6 @@ def create_user_application_service() -> UserApplicationService:
 
 def create_account_application_service() -> AccountApplicationService:
     from api.domain.services.account_service import AccountService
-    from api.domain.validators.account_status_validator import AccountStatusValidator
     from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
     from api.infrastructure.database.repositories.users_repository import UsersRepository
     from api.infrastructure.translators.account_translator import AccountTranslator
@@ -75,22 +74,19 @@ def create_account_application_service() -> AccountApplicationService:
         account_service=AccountService(
             accounts_repository=AccountsRepository,
             account_translator=AccountTranslator
-        ),
-        account_status_validator=AccountStatusValidator
+        )
     )
 
 
 def create_transaction_application_service() -> TransactionApplicationService:
     from api.domain.services.account_service import AccountService
     from api.domain.services.transaction_service import TransactionService
-    from api.domain.validators.account_status_validator import AccountStatusValidator
     from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
     from api.infrastructure.database.repositories.transactions_repository import TransactionsRepository
     from api.infrastructure.translators.account_translator import AccountTranslator
     from api.infrastructure.translators.transaction_translator import TransactionTranslator
 
     return TransactionApplicationService(
-        account_status_validator=AccountStatusValidator,
         account_service=AccountService(
             accounts_repository=AccountsRepository,
             account_translator=AccountTranslator

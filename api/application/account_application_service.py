@@ -3,7 +3,6 @@ import api.domain.custom_exceptions as ce
 from api.domain.models.account import Account
 from api.domain.models.user import User
 from api.domain.services.account_service import AccountService
-from api.domain.validators.account_status_validator import AccountStatusValidator
 from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
 from api.infrastructure.database.repositories.users_repository import UsersRepository
 from api.infrastructure.log import logger
@@ -14,7 +13,6 @@ class AccountApplicationService:
         self.__users_repository: UsersRepository = kwargs.get('users_repository')
         self.__accounts_repository: AccountsRepository = kwargs.get('accounts_repository')
         self.__account_service: AccountService = kwargs.get('account_service')
-        self.__account_status_validator: AccountStatusValidator = kwargs.get('account_status_validator')
 
     def register_account(self, body: dict) -> Account:
         logger.info({"message": "Creating account", "body": body})
@@ -51,7 +49,7 @@ class AccountApplicationService:
             logger.warning({"message": "No accounts found", "id": account_id})
             raise ce.AccountNotFound
 
-        is_able_to_close: bool = self.__account_status_validator.validate_status_to_close_account(account.status)
+        is_able_to_close: bool = account.is_able_to_close()
         if not is_able_to_close:
             logger.warning({"message": "This account is not able to close", "id": account_id})
             raise ce.AccountStatusDoesNotAllowToClose
@@ -66,7 +64,7 @@ class AccountApplicationService:
             logger.warning({"message": "No accounts found", "id": account_id})
             raise ce.AccountNotFound
 
-        is_able_to_lock: bool = self.__account_status_validator.validate_status_to_lock_account(account.status)
+        is_able_to_lock: bool = account.is_able_to_lock()
         if not is_able_to_lock:
             logger.warning({"message": "This account is not able to lock", "id": account_id})
             raise ce.AccountStatusDoesNotAllowToLock
@@ -81,7 +79,7 @@ class AccountApplicationService:
             logger.warning({"message": "No accounts found", "id": account_id})
             raise ce.AccountNotFound
 
-        is_able_to_unlock: bool = self.__account_status_validator.validate_status_to_unlock_account(account.status)
+        is_able_to_unlock: bool = account.is_able_to_unlock()
         if not is_able_to_unlock:
             logger.warning({"message": "This account is not able to unlock", "id": account_id})
             raise ce.AccountStatusDoesNotAllowToUnLock
