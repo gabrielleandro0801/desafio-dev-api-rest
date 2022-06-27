@@ -8,8 +8,8 @@ from api.domain.models.user import User
 
 
 class UserController(Resource):
-    def __init__(self, users_validator, application_service) -> None:
-        self.__user_validator: UserValidator = users_validator
+    def __init__(self, user_validator, application_service) -> None:
+        self.__user_validator: UserValidator = user_validator
         self.__application_service: UserApplicationService = application_service
 
     def post(self):

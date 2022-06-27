@@ -32,3 +32,18 @@ class Account(db.Model):
         self.balance = kwargs.get('balance')
         self.withdraw_daily_limit = kwargs.get('withdraw_daily_limit')
         self.user_id = kwargs.get('user_id')
+
+    def is_able_to_do_transaction(self) -> bool:
+        return self.status == AccountStatus.ACTIVE
+
+    def is_able_to_lock(self) -> bool:
+        return self.status == AccountStatus.ACTIVE
+
+    def is_able_to_unlock(self) -> bool:
+        return self.status == AccountStatus.LOCKED
+
+    def is_able_to_close(self) -> bool:
+        return self.status == AccountStatus.ACTIVE
+
+    def is_able_to_list_transactions(self) -> bool:
+        return self.status in [AccountStatus.ACTIVE, AccountStatus.LOCKED]

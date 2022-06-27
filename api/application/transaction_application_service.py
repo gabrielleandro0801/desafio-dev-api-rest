@@ -5,7 +5,6 @@ from api.domain.models.account import Account
 from api.domain.services.account_service import AccountService
 from api.domain.services.transaction_service import TransactionService
 
-from api.domain.validators.account_status_validator import AccountStatusValidator
 from api.infrastructure.database.repositories.accounts_repository import AccountsRepository
 from api.infrastructure.database.repositories.transactions_repository import TransactionsRepository
 from api.infrastructure.log import logger
@@ -13,7 +12,6 @@ from api.infrastructure.log import logger
 
 class TransactionApplicationService:
     def __init__(self, **kwargs):
-        self.__account_status_validator: AccountStatusValidator = kwargs.get('account_status_validator')
         self.__account_service: AccountService = kwargs.get('account_service')
         self.__accounts_repository: AccountsRepository = kwargs.get('accounts_repository')
         self.__transaction_service: TransactionService = kwargs.get('transaction_service')
@@ -27,7 +25,7 @@ class TransactionApplicationService:
             logger.warning({"message": "No accounts found", "id": body.get('accountId')})
             raise ce.AccountNotFound
 
-        is_valid: bool = self.__account_status_validator.validate_status_to_do_transaction(account.status)
+        is_valid: bool = account.is_able_to_do_transaction()
         if not is_valid:
             logger.warning({"message": "This account is not able to do transactions", "id": body.get('accountId')})
             raise ce.AccountStatusDoesNotAllowToTransact
@@ -43,7 +41,7 @@ class TransactionApplicationService:
             logger.warning({"message": "No accounts found", "id": kwargs.get('accountId')})
             raise ce.AccountNotFound
 
-        is_valid: bool = self.__account_status_validator.validate_status_to_list_transactions(account.status)
+        is_valid: bool = account.is_able_to_list_transactions()
         if not is_valid:
             logger.warning({"message": "This account is not able to list transactions", "id": kwargs.get('accountId')})
             raise ce.AccountStatusDoesNotAllowToListTransactions
