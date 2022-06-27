@@ -18,4 +18,4 @@ api = v1_accounts.add_routes(api)
 api = v1_transactions.add_routes(api)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(port=8080)
