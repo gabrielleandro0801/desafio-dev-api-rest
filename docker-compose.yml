@@ -15,14 +15,14 @@ services:
       - ./script.sql:/docker-entrypoint-initdb.d/script.sql
 
   app:
+    depends_on:
+      - db
     build: './api'
     ports:
-      - 5000:5000
+      - 5000:8080
     environment:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=password
       - DB_DATABASE=postgres
-    volumes:
-      - .:/app
