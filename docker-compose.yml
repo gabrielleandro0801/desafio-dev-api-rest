@@ -10,16 +10,16 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - ./script.sql:/docker-entrypoint-initdb.d/script.sql
 
   app:
     depends_on:
       - db
-    build: './api'
+    build: '.'
     ports:
-      - 5000:8080
+      - "5001:3001"
     environment:
       - DB_HOST=db
       - DB_PORT=5432
