@@ -13,6 +13,14 @@
 docker-compose build && docker-compose up
 ```
 
+<div id="base_url">
+    <h2 align="left">URL</h2>
+</div>
+
+``` shell
+http://localhost:5001
+```
+
 <div id="rotas">
     <h2 align="center">Rotas</h2>
 </div>
